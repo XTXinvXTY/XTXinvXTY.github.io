@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daniel Sun | Master of Statistics</title>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-main: #111111;
+            --text-muted: #737373;
+            --accent: #000000;
+            --border: #ebebeb;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text-main);
+            background-color: var(--bg-color);
+            max-width: 640px; /* Narrower width for better typographic rhythm */
+            margin: 0 auto;
+            padding: 6rem 1.5rem;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+            letter-spacing: -0.03em;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-top: 0;
+            font-weight: 400;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-top: 3.5rem;
+            margin-bottom: 1.2rem;
+            color: var(--text-main);
+            letter-spacing: -0.01em;
+        }
+
+        p {
+            margin-bottom: 1.2rem;
+            color: var(--text-muted);
+        }
+
+        a {
+            color: var(--text-muted);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        a:hover {
+            color: var(--accent);
+            border-bottom: 1px solid var(--accent);
+        }
+
+        /* Education Layout */
+        .edu-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .edu-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.2rem;
+        }
+
+        .school {
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        .date {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .degree {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Interests Layout */
+        .interests-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .interests-list span::after {
+            content: "•";
+            margin-left: 0.8rem;
+            color: var(--border);
+        }
+
+        .interests-list span:last-child::after {
+            content: "";
+        }
+
+        /* Header Links */
+        header {
+            margin-bottom: 4rem;
+        }
+
+        .contact-links {
+            margin-top: 1.5rem;
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .contact-links a {
+            color: var(--text-main);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Daniel Sun</h1>
+        <p class="subtitle">Master of Statistics Student at the University of Toronto</p>
+        <div class="contact-links">
+            <a href="mailto:your.email@example.com">Email</a>
+            <a href="https://github.com/yourusername">GitHub</a>
+            <a href="resume.pdf" target="_blank">CV</a>
+        </div>
+    </header>
+
+    <main>
+        <section>
+            <h2>About</h2>
+            <p>I am a graduate student at the University of Toronto. My academic research and professional work focus on the intersection of data science, economic theory, and statistical modeling.</p>
+        </section>
+
+        <section>
+            <h2>Education</h2>
+            <div class="edu-item">
+                <div class="item-header">
+                    <span class="school">University of Toronto</span>
+                    <span class="date">Present</span>
+                </div>
+                <div class="degree">Master of Statistics</div>
+            </div>
+            
+            <div class="edu-item">
+                <div class="item-header">
+                    <span class="school">University of Toronto</span>
+                    <span class="date">Apr 2026</span>
+                </div>
+                <div class="degree">Honours Bachelor of Science in Statistics and Economics</div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Interests</h2>
+            <div class="interests-list">
+                <span>Statistical Learning</span>
+                <span>Machine Learning</span>
+                <span>Quantitative Finance</span>
+                <span>Risk Management</span>
+                <span>Game Theory</span>
+                <span>Data Science</span>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>
