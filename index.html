@@ -9,7 +9,18 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
-    :root {
+    /* Dark mode default; body.light overrides */
+    body {
+      --bg: #111111;
+      --text: #e8e6e1;
+      --muted: #888888;
+      --accent: #7aa3d4;
+      --accent-light: #1a2233;
+      --border: #2a2a2a;
+      --nav-bg: #111111;
+    }
+
+    body.light {
       --bg: #faf9f7;
       --text: #1a1a1a;
       --muted: #6b6b6b;
@@ -20,7 +31,6 @@
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { scroll-behavior: smooth; }
 
     body {
@@ -29,6 +39,7 @@
       line-height: 1.7;
       color: var(--text);
       background: var(--bg);
+      transition: background 0.2s, color 0.2s;
     }
 
     /* NAV */
@@ -39,6 +50,7 @@
       background: var(--nav-bg);
       border-bottom: 1px solid var(--border);
       padding: 0 2rem;
+      transition: background 0.2s, border-color 0.2s;
     }
     .nav-inner {
       max-width: 820px;
@@ -67,9 +79,20 @@
       letter-spacing: 0.02em;
       transition: color 0.15s;
     }
-    .nav-links a:hover, .nav-links a.active {
-      color: var(--accent);
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+    #theme-btn {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: color 0.15s, border-color 0.15s;
     }
+    #theme-btn:hover { color: var(--accent); border-color: var(--accent); }
 
     /* LAYOUT */
     .page {
@@ -86,7 +109,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* ABOUT PAGE */
+    /* ABOUT */
     .about-grid {
       display: grid;
       grid-template-columns: 1fr 210px;
@@ -136,9 +159,8 @@
     .contact-row a { color: var(--accent); text-decoration: none; }
     .contact-row a:hover { text-decoration: underline; }
 
-    /* NEWS TABLE */
+    /* SECTION TITLE */
     h2.section-title {
-      font-size: 1.1rem;
       font-weight: 500;
       letter-spacing: 0.06em;
       text-transform: uppercase;
@@ -149,6 +171,8 @@
       font-family: 'DM Mono', monospace;
       font-size: 0.8rem;
     }
+
+    /* NEWS */
     .news-table { width: 100%; border-collapse: collapse; }
     .news-table td { padding: 0.45rem 0; vertical-align: top; font-size: 0.95rem; }
     .news-table td:first-child {
@@ -160,14 +184,9 @@
       padding-top: 0.55rem;
     }
 
-    /* CV PAGE */
-    .cv-intro {
-      font-size: 0.95rem;
-      color: var(--muted);
-      margin-bottom: 2rem;
-    }
+    /* CV */
+    .cv-intro { font-size: 0.95rem; color: var(--muted); margin-bottom: 2rem; }
     .cv-intro a { color: var(--accent); }
-
     .cv-section { margin-bottom: 2.2rem; }
     .cv-section h3 {
       font-family: 'DM Mono', monospace;
@@ -201,7 +220,7 @@
       margin-bottom: 0.25rem;
     }
     .cv-bullets { padding-left: 1.2rem; margin-top: 0.3rem; }
-    .cv-bullets li { font-size: 0.93rem; margin-bottom: 0.2rem; color: #333; }
+    .cv-bullets li { font-size: 0.93rem; margin-bottom: 0.2rem; color: var(--text); }
     .cv-skills-grid {
       display: grid;
       grid-template-columns: 130px 1fr;
@@ -215,7 +234,7 @@
       padding-top: 0.1rem;
     }
 
-    /* RESEARCH PAGE */
+    /* RESEARCH */
     .paper-card {
       border-left: 2px solid var(--border);
       padding: 0.8rem 0 0.8rem 1.2rem;
@@ -226,7 +245,7 @@
     .paper-title { font-weight: 500; font-size: 1.02rem; margin-bottom: 0.2rem; }
     .paper-authors { font-size: 0.92rem; color: var(--muted); margin-bottom: 0.2rem; font-style: italic; }
     .paper-venue { font-size: 0.85rem; font-family: 'DM Mono', monospace; color: var(--muted); margin-bottom: 0.4rem; }
-    .paper-abstract { font-size: 0.9rem; color: #444; }
+    .paper-abstract { font-size: 0.9rem; color: var(--text); opacity: 0.85; }
     .tag {
       display: inline-block;
       background: var(--accent-light);
@@ -239,7 +258,7 @@
       margin-top: 0.4rem;
     }
 
-    /* COURSEWORK PAGE */
+    /* COURSEWORK */
     .course-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -250,7 +269,7 @@
       justify-content: space-between;
       font-size: 0.93rem;
       padding: 0.3rem 0;
-      border-bottom: 1px solid #eee;
+      border-bottom: 1px solid var(--border);
     }
     .course-name { flex: 1; }
     .course-grade {
@@ -284,10 +303,11 @@
       <li><a href="#" onclick="showPage('coursework')" id="nav-coursework">Coursework</a></li>
       <li><a href="#" onclick="showPage('cv')" id="nav-cv">CV</a></li>
     </ul>
+    <button onclick="toggleTheme()" id="theme-btn">light</button>
   </div>
 </nav>
 
-<!-- ═══ ABOUT ═══ -->
+<!-- ABOUT -->
 <div class="page active" id="page-about">
   <div class="about-grid">
     <div class="about-text">
@@ -299,8 +319,8 @@
 
       <p>
         I am an incoming MSc student in Statistics at the University of Toronto (starting Fall 2026).
-        My research interests are constantly evolving but currently centre on <strong> Bayesian computational methods ,</strong>
-        <strong> Neural Nets/Deep Learning </strong> and <strong>uncertainty quantification</strong>. I'm looking for research
+        My research interests are constantly evolving but currently centre on <strong>Bayesian computational methods,</strong>
+        <strong>Neural Nets/Deep Learning</strong> and <strong>uncertainty quantification</strong>. I'm looking for research
         with a particular focus on distilling posterior knowledge from Bayesian neural networks into
         compact, deployable models.
       </p>
@@ -317,6 +337,7 @@
       <p>
         Outside of research, I am a member of the
         <a href="https://ssc.ca/">Statistical Society of Canada</a> and moonlight as a derivatives trader using ML.
+      </p>
 
       <div class="contact-row">
         <span>danieljj.sun [at] mail.utoronto.ca</span>
@@ -326,7 +347,7 @@
     </div>
 
     <div class="about-photo">
-      <!-- Replace src with your photo path, e.g. src="photo.jpg" -->
+      <!-- Replace with: <img src="photo.jpg" alt="Daniel Sun"> -->
       <span style="text-align:center; padding: 1rem; line-height:1.5">photo.jpg<br><span style="opacity:0.6">replace this</span></span>
     </div>
   </div>
@@ -362,7 +383,7 @@
   </table>
 </div>
 
-<!-- ═══ RESEARCH ═══ -->
+<!-- RESEARCH -->
 <div class="page" id="page-research">
   <h1 class="name" style="margin-bottom:0.8rem;">Research</h1>
   <p style="color:var(--muted); font-size:0.95rem; margin-bottom:2rem;">
@@ -372,69 +393,69 @@
 
   <h2 class="section-title">Currently in Progress</h2>
 
-<div class="paper-card">
-  <div class="paper-title">Automated Neural Architecture Search</div>
-  <div class="paper-authors">D. Sun, R. Baptista</div>
-  <div class="paper-venue">University of Toronto · 2026</div>
-  <div class="paper-abstract">
-    Ongoing work on automated search over neural network architectures,
-    supervised by Prof. Ricardo Baptista.
+  <div class="paper-card">
+    <div class="paper-title">Automated Neural Architecture Search</div>
+    <div class="paper-authors">D. Sun, R. Baptista</div>
+    <div class="paper-venue">University of Toronto · 2026</div>
+    <div class="paper-abstract">
+      Ongoing work on automated search over neural network architectures,
+      supervised by Prof. Ricardo Baptista.
+    </div>
+    <span class="tag">architecture search</span>
+    <span class="tag">deep learning</span>
   </div>
-  <span class="tag">architecture search</span>
-  <span class="tag">deep learning</span>
+
+  <div class="paper-card">
+    <div class="paper-title">Generative AI Tools and Supports for Undergraduate Statistics Students</div>
+    <div class="paper-authors">D. Sun, S. Caetano et al.</div>
+    <div class="paper-venue">University of Toronto · 2025–2026</div>
+    <div class="paper-abstract">
+      Surveyed undergraduate statistics students on their usage of generative AI tools;
+      currently writing the findings for academic publication. Includes a systematic
+      literature review of existing AI supports for undergraduate statistics education.
+    </div>
+    <span class="tag">in preparation</span>
+    <span class="tag">education</span>
+    <span class="tag">generative AI</span>
+  </div>
+
+  <h2 class="section-title">Research Software</h2>
+
+  <div class="paper-card">
+    <div class="paper-title">Interactive Coding Modules for Biological Data Analysis</div>
+    <div class="paper-authors">D. Sun, A. Malinowski</div>
+    <div class="paper-venue">
+      Department of Human Biology, University of Toronto · 2026 &nbsp;·&nbsp;
+      <a href="https://uoft-hmb-coding.github.io/" target="_blank">uoft-hmb-coding.github.io ↗</a>
+    </div>
+    <div class="paper-abstract">
+      Interactive Python and R modules facilitating the application of Principal Component
+      Analysis (PCA) for biological data, alongside tools for sample size calculations and
+      systematic review visualisations including forest plots and odds ratios.
+    </div>
+    <span class="tag">R</span>
+    <span class="tag">Python</span>
+    <span class="tag">PCA</span>
+    <span class="tag">teaching</span>
+  </div>
+
+  <h2 class="section-title">Other Work</h2>
+
+  <div class="paper-card">
+    <div class="paper-title">Public Wi-Fi Usage Analysis for the City of Toronto</div>
+    <div class="paper-authors">D. Sun · Statistical Consultant, City of Toronto / University of Toronto</div>
+    <div class="paper-venue">Aug.–Sept. 2025</div>
+    <div class="paper-abstract">
+      Developed and reviewed Python scripts (Pandas, Geopandas, Scikit-learn) to analyse
+      municipal Wi-Fi data; recommended K-modes clustering to generate actionable insights
+      for decision-makers.
+    </div>
+    <span class="tag">applied statistics</span>
+    <span class="tag">clustering</span>
+  </div>
 </div>
 
-<div class="paper-card">
-  <div class="paper-title">Generative AI Tools and Supports for Undergraduate Statistics Students</div>
-  <div class="paper-authors">D. Sun, S. Caetano et al.</div>
-  <div class="paper-venue">University of Toronto · 2025–2026</div>
-  <div class="paper-abstract">
-    Surveyed undergraduate statistics students on their usage of generative AI tools;
-    currently writing the findings for academic publication. Includes a systematic
-    literature review of existing AI supports for undergraduate statistics education.
-  </div>
-  <span class="tag">in preparation</span>
-  <span class="tag">education</span>
-  <span class="tag">generative AI</span>
-</div>
-
-<h2 class="section-title">Research Software</h2>
-
-<div class="paper-card">
-  <div class="paper-title">Interactive Coding Modules for Biological Data Analysis</div>
-  <div class="paper-authors">D. Sun, A. Malinowski</div>
-  <div class="paper-venue">
-    Department of Human Biology, University of Toronto · 2026 &nbsp;·&nbsp;
-    <a href="https://uoft-hmb-coding.github.io/" target="_blank">uoft-hmb-coding.github.io ↗</a>
-  </div>
-  <div class="paper-abstract">
-    Interactive Python and R modules facilitating the application of Principal Component
-    Analysis (PCA) for biological data, alongside
-    tools for sample size calculations and systematic review visualisations including forest
-    plots and odds ratios.
-  </div>
-  <span class="tag">R</span>
-  <span class="tag">Python</span>
-  <span class="tag">PCA</span>
-  <span class="tag">teaching</span>
-</div>
-
-<h2 class="section-title">Other Work</h2>
-
-<div class="paper-card">
-  <div class="paper-title">Public Wi-Fi Usage Analysis for the City of Toronto</div>
-  <div class="paper-authors">D. Sun · Statistical Consultant, City of Toronto / University of Toronto</div>
-  <div class="paper-venue">Aug.–Sept. 2025</div>
-  <div class="paper-abstract">
-    Developed and reviewed Python scripts (Pandas, Geopandas, Scikit-learn) to analyse
-    municipal Wi-Fi data; recommended K-modes clustering to generate actionable insights
-    for decision-makers.
-  </div>
-  <span class="tag">applied statistics</span>
-  <span class="tag">clustering</span>
-</div>
-
-<!-- ═══ COURSEWORK ═══ -->
+<!-- COURSEWORK -->
 <div class="page" id="page-coursework">
   <h1 class="name" style="margin-bottom:0.8rem;">Coursework</h1>
   <p style="color:var(--muted); font-size:0.95rem; margin-bottom:2rem;">
@@ -466,7 +487,7 @@
   </div>
 </div>
 
-<!-- ═══ CV ═══ -->
+<!-- CV -->
 <div class="page" id="page-cv">
   <h1 class="name" style="margin-bottom:0.3rem;">Curriculum Vitae</h1>
   <p class="cv-intro">
@@ -474,10 +495,8 @@
     &nbsp;·&nbsp; Updated May 2026
   </p>
 
-  <!-- Education -->
   <div class="cv-section">
     <h3>Education</h3>
-
     <div class="cv-entry">
       <div class="cv-entry-header">
         <span class="cv-entry-title">University of Toronto</span>
@@ -485,7 +504,6 @@
       </div>
       <div class="cv-entry-sub">MSc Statistics</div>
     </div>
-
     <div class="cv-entry">
       <div class="cv-entry-header">
         <span class="cv-entry-title">University of Toronto</span>
@@ -495,10 +513,8 @@
     </div>
   </div>
 
-  <!-- Research -->
   <div class="cv-section">
     <h3>Research Experience</h3>
-
     <div class="cv-entry">
       <div class="cv-entry-header">
         <span class="cv-entry-title">Data Science Scholar (SUDS), Data Sciences Institute</span>
@@ -509,7 +525,6 @@
         <li>Visitor analytics, SQL, and dashboards at the Art Gallery of Ontario.</li>
       </ul>
     </div>
-
     <div class="cv-entry">
       <div class="cv-entry-header">
         <span class="cv-entry-title">Research Coding Assistant, Dept. of Human Biology</span>
@@ -521,7 +536,6 @@
         <li>Developed computational tools for sample size calculations and forest plot visualizations.</li>
       </ul>
     </div>
-
     <div class="cv-entry">
       <div class="cv-entry-header">
         <span class="cv-entry-title">Research Assistant & Co-Author, Dept. of Statistics</span>
@@ -533,7 +547,6 @@
         <li>Conducted a literature review of AI tools and supports for statistics education.</li>
       </ul>
     </div>
-
     <div class="cv-entry">
       <div class="cv-entry-header">
         <span class="cv-entry-title">Research Assistant, Dept. of Statistics</span>
@@ -545,7 +558,6 @@
         <li>Presented at MacPherson Institute's <em>Innovations in Education 2025</em>.</li>
       </ul>
     </div>
-
     <div class="cv-entry">
       <div class="cv-entry-header">
         <span class="cv-entry-title">Research Assistant, Dept. of Statistics</span>
@@ -559,10 +571,8 @@
     </div>
   </div>
 
-  <!-- Industry -->
   <div class="cv-section">
     <h3>Industry Experience</h3>
-
     <div class="cv-entry">
       <div class="cv-entry-header">
         <span class="cv-entry-title">Statistical Consultant, City of Toronto / University of Toronto</span>
@@ -573,7 +583,6 @@
         <li>Recommended K-modes clustering; provided statistical interpretation for municipal decision-makers.</li>
       </ul>
     </div>
-
     <div class="cv-entry">
       <div class="cv-entry-header">
         <span class="cv-entry-title">AI Agent Engineer (Intern), Atlantis AI</span>
@@ -585,7 +594,6 @@
         <li>Deployed and automated a live web app on Netlify.</li>
       </ul>
     </div>
-
     <div class="cv-entry">
       <div class="cv-entry-header">
         <span class="cv-entry-title">Machine Learning Assistant, zofiQ Inc.</span>
@@ -596,7 +604,6 @@
         <li>Designed concept drift detection with automatic retraining triggers.</li>
       </ul>
     </div>
-
     <div class="cv-entry">
       <div class="cv-entry-header">
         <span class="cv-entry-title">Data Analyst (Intern), Platanus Group</span>
@@ -609,7 +616,6 @@
     </div>
   </div>
 
-  <!-- Memberships -->
   <div class="cv-section">
     <h3>Memberships &amp; Service</h3>
     <div class="cv-entry">
@@ -621,7 +627,6 @@
     </div>
   </div>
 
-  <!-- Skills -->
   <div class="cv-section">
     <h3>Technical Skills &amp; Languages</h3>
     <div class="cv-skills-grid">
@@ -643,6 +648,11 @@
     document.getElementById('nav-' + id).classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
     return false;
+  }
+
+  function toggleTheme() {
+    const isLight = document.body.classList.toggle('light');
+    document.getElementById('theme-btn').textContent = isLight ? 'dark' : 'light';
   }
 </script>
 </body>
